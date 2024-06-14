@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/backend' , function(){
+    return view('layouts.backend.theme');
+});
+
+
 Route::get('/', function () {
     return view('welcome');
 });
