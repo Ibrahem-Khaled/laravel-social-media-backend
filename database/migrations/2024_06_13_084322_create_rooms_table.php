@@ -15,12 +15,10 @@ return new class extends Migration {
             $table->string('name');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->unsignedBigInteger('user_id');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('slug');
             $table->string('image')->nullable();
             $table->string('password')->nullable();
             $table->unsignedBigInteger('category_id');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
