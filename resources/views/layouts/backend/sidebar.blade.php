@@ -19,7 +19,7 @@
                             <i class="fa fa-circle-notch text-primary"></i>
                         </span>
                         <span class="smini-hide font-size-h5 tracking-wider">
-                            One<span class="font-w400">UI</span>
+                        Enjoy<span class="font-w400">Chat</span>
                         </span>
                     </a>
                     <!-- END Logo -->
@@ -110,24 +110,270 @@
                                 </a>
                             </li>
                             <li class="nav-main-heading">Heading</li>
-                            <li class="nav-main-item">
+
+                            <li class="nav-main-item @if (request()->segment(2) == 'users')
+                                open
+                            @endif ">
                                 <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
-                                    <i class="nav-main-link-icon si si-puzzle"></i>
-                                    <span class="nav-main-link-name">Dropdown</span>
+                                    <i class="nav-main-link-icon fa fa-users"></i>
+                                    <span class="nav-main-link-name">Users</span>
                                 </a>
                                 <ul class="nav-main-submenu">
                                     <li class="nav-main-item">
-                                        <a class="nav-main-link" href="javascript:void(0)">
-                                            <span class="nav-main-link-name">Link #1</span>
+                                        <a class="nav-main-link @if (request()->segment(2) == 'users' && request()->segment(3) == NULL)
+                                                                    active
+                                                                @endif"
+                                    href="{{route('admin.users.list')}}">
+                                            <span class="nav-main-link-name ">List</span>
                                         </a>
                                     </li>
                                     <li class="nav-main-item">
-                                        <a class="nav-main-link" href="javascript:void(0)">
-                                            <span class="nav-main-link-name">Link #2</span>
+                                        <a class="nav-main-link @if (request()->segment(2) == 'users' && request()->segment(3) == 'add')
+                                                                    active
+                                                                @endif" href="{{route('admin.users.add')}}">
+                                            <span class="nav-main-link-name">Add</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
+
+                            <li class="nav-main-item @if (request()->segment(2) == 'categories')
+                                open
+                            @endif ">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-list"></i>
+                                    <span class="nav-main-link-name">Categories</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'categories' && request()->segment(3) == NULL)
+                                                                    active
+                                                                @endif"
+                                    href="{{route('admin.categories.list')}}">
+                                            <span class="nav-main-link-name ">List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'categories' && request()->segment(3) == 'add')
+                                                                    active
+                                                                @endif" href="{{route('admin.categories.add')}}">
+                                            <span class="nav-main-link-name">Add</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-main-item @if (request()->segment(2) == 'rooms')
+                                open
+                            @endif ">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-users"></i>
+                                    <span class="nav-main-link-name">Rooms</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'rooms' && request()->segment(3) == NULL)
+                                                                    active
+                                                                @endif"
+                                    href="{{route('admin.rooms.list')}}">
+                                            <span class="nav-main-link-name ">List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'rooms' && request()->segment(3) == 'add')
+                                                                    active
+                                                                @endif" href="{{route('admin.rooms.add')}}">
+                                            <span class="nav-main-link-name">Add</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-main-item @if (request()->segment(2) == 'posts')
+                                open
+                            @endif ">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-comment"></i>
+                                    <span class="nav-main-link-name">Posts</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'posts' && request()->segment(3) == NULL)
+                                                                    active
+                                                                @endif"
+                                    href="{{route('admin.posts.list')}}">
+                                            <span class="nav-main-link-name ">List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'posts' && request()->segment(3) == 'add')
+                                                                    active
+                                                                @endif" href="{{route('admin.posts.add')}}">
+                                            <span class="nav-main-link-name">Add</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-main-item @if (request()->segment(2) == 'comments')
+                                open
+                            @endif ">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-comments"></i>
+                                    <span class="nav-main-link-name">Comments</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'comments' && request()->segment(3) == NULL)
+                                                                    active
+                                                                @endif"
+                                    href="{{route('admin.comments.list')}}">
+                                            <span class="nav-main-link-name ">List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'comments' && request()->segment(3) == 'add')
+                                                                    active
+                                                                @endif" href="{{route('admin.comments.add')}}">
+                                            <span class="nav-main-link-name">Add</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-main-item @if (request()->segment(2) == 'likes')
+                                open
+                            @endif ">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-thumbs-up "></i>
+                                    <span class="nav-main-link-name">Likes</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'likes' && request()->segment(3) == NULL)
+                                                                    active
+                                                                @endif"
+                                    href="{{route('admin.likes.list')}}">
+                                            <span class="nav-main-link-name ">List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'likes' && request()->segment(3) == 'add')
+                                                                    active
+                                                                @endif" href="{{route('admin.likes.add')}}">
+                                            <span class="nav-main-link-name">Add</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-main-item @if (request()->segment(2) == 'countries')
+                                open
+                            @endif ">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-globe "></i>
+                                    <span class="nav-main-link-name">Countries</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'countries' && request()->segment(3) == NULL)
+                                                                    active
+                                                                @endif"
+                                    href="{{route('admin.countries.list')}}">
+                                            <span class="nav-main-link-name ">List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'countries' && request()->segment(3) == 'add')
+                                                                    active
+                                                                @endif" href="{{route('admin.countries.add')}}">
+                                            <span class="nav-main-link-name">Add</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-main-item @if (request()->segment(2) == 'gifts')
+                                open
+                            @endif ">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-gift "></i>
+                                    <span class="nav-main-link-name">Gifts</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'gifts' && request()->segment(3) == NULL)
+                                                                    active
+                                                                @endif"
+                                    href="{{route('admin.gifts.list')}}">
+                                            <span class="nav-main-link-name ">List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'gifts' && request()->segment(3) == 'add')
+                                                                    active
+                                                                @endif" href="{{route('admin.gifts.add')}}">
+                                            <span class="nav-main-link-name">Add</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li class="nav-main-item @if (request()->segment(2) == 'frames')
+                                open
+                            @endif ">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-gift "></i>
+                                    <span class="nav-main-link-name">Frames</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'frames' && request()->segment(3) == NULL)
+                                                                    active
+                                                                @endif"
+                                    href="{{route('admin.frames.list')}}">
+                                            <span class="nav-main-link-name ">List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'frames' && request()->segment(3) == 'add')
+                                                                    active
+                                                                @endif" href="{{route('admin.frames.add')}}">
+                                            <span class="nav-main-link-name">Add</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-main-item @if (request()->segment(2) == 'entries')
+                                open
+                            @endif ">
+                                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
+                                    <i class="nav-main-link-icon fa fa-gift "></i>
+                                    <span class="nav-main-link-name">entries</span>
+                                </a>
+                                <ul class="nav-main-submenu">
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'entries' && request()->segment(3) == NULL)
+                                                                    active
+                                                                @endif"
+                                    href="{{route('admin.entries.list')}}">
+                                            <span class="nav-main-link-name ">List</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-main-item">
+                                        <a class="nav-main-link @if (request()->segment(2) == 'entries' && request()->segment(3) == 'add')
+                                                                    active
+                                                                @endif" href="{{route('admin.entries.add')}}">
+                                            <span class="nav-main-link-name">Add</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
                         </ul>
                     </div>
                     <!-- END Side Navigation -->

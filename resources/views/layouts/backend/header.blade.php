@@ -45,7 +45,7 @@
             <!-- User Dropdown -->
             <div class="dropdown d-inline-block ml-2">
                 <button type="button" class="btn btn-sm btn-dual d-flex align-items-center" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle" src="assets/media/avatars/avatar10.jpg" alt="Header Avatar" style="width: 21px;">
+                    <img class="rounded-circle" src="{{asset('assets/media/avatars/avatar10.jpg')}}" alt="Header Avatar" style="width: 21px;">
                     <span class="d-none d-sm-inline-block ml-2">Adam</span>
                     <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block ml-1 mt-1"></i>
                 </button>
@@ -71,7 +71,7 @@
                         <a class="dropdown-item d-flex align-items-center justify-content-between" href="op_auth_lock.html">
                             <span class="font-size-sm font-w500">Lock Account</span>
                         </a>
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="op_auth_signin.html">
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="{{route('logout')}}">
                             <span class="font-size-sm font-w500">Log Out</span>
                         </a>
                     </div>

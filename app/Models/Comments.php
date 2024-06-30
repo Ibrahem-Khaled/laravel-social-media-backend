@@ -15,4 +15,14 @@ class Comments extends Model
         'body',
         'status',
     ];
+
+
+    function user()
+    {
+        return $this->hasOne(User::class , 'id' , 'user_id');
+    }
+    function post()
+    {
+        return $this->hasOne(Posts::class , 'id' , 'post_id');
+    }
 }

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Bl\LaravelUploadable\Casts\FileCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -59,6 +61,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'image' => FileCast::class,
     ];
 
 
@@ -76,5 +79,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function sentGifts()
+    {
+        return $this->belongsToMany(Gift::class, 'gift_user', 'from_user_id', 'gift_id')->withTimestamps();
+    }
+
+    public function receivedGifts()
+    {
+        return $this->belongsToMany(Gift::class, 'gift_user', 'to_user_id', 'gift_id')->withTimestamps();
     }
 }

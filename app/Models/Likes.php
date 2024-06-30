@@ -13,4 +13,13 @@ class Likes extends Model
         'post_id',
         'user_id',
     ];
+
+    function user()
+    {
+        return $this->hasOne(User::class , 'id' , 'user_id');
+    }
+    function post()
+    {
+        return $this->hasOne(Posts::class , 'id' , 'post_id');
+    }
 }

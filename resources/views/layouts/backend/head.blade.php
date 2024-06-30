@@ -1,19 +1,20 @@
 <!doctype html>
 <html lang="en">
     <head>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-        <title>OneUI - Bootstrap 4 Admin Template &amp; UI Framework</title>
+        <title>Enjoy Caht</title>
 
-        <meta name="description" content="OneUI - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        <meta name="description" content="Enjoy Caht created by pixelcave and published on Themeforest">
         <meta name="author" content="pixelcave">
         <meta name="robots" content="noindex, nofollow">
 
         <!-- Open Graph Meta -->
-        <meta property="og:title" content="OneUI - Bootstrap 4 Admin Template &amp; UI Framework">
+        <meta property="og:title" content="Enjoy Caht">
         <meta property="og:site_name" content="OneUI">
-        <meta property="og:description" content="OneUI - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        <meta property="og:description" content="Enjoy Caht created by pixelcave and published on Themeforest">
         <meta property="og:type" content="website">
         <meta property="og:url" content="">
         <meta property="og:image" content="">
@@ -25,9 +26,11 @@
         <link rel="apple-touch-icon" sizes="180x180" href="assets/media/favicons/apple-touch-icon-180x180.png">
         <!-- END Icons -->
 
+        @yield('css-before')
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
         <link rel="stylesheet" id="css-main" href="{{asset('assets/css/oneui.min.css')}}">
 
-        @yield('css-aftear')
+        @yield('css-after')
 
     </head>
