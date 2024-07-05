@@ -1,6 +1,12 @@
 <?php
 
 use App\Http\Controllers\api\authController;
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\API\CountryController;
+use App\Http\Controllers\API\EntryController;
+use App\Http\Controllers\API\GiftController;
+use App\Http\Controllers\API\LikeController;
 use App\Http\Controllers\api\PostController;
 use App\Http\Controllers\api\RoomsController;
 use Illuminate\Http\Request;
@@ -30,8 +36,37 @@ Route::group([], function () {
 
     //this is for posts only route
     Route::apiResource('posts', PostController::class);
+    Route::post('posts/update/{id}' ,[PostController::class,'update'] );
+
 
     //this is for room only route
     Route::apiResource('rooms', RoomsController::class);
+    Route::post('rooms/update/{id}' ,[RoomsController::class,'update'] );
+
+    Route::apiResource('categories', CategoryController::class);
+    Route::post('categories/update/{id}' ,[CategoryController::class,'update'] );
+
+    Route::apiResource('comments', CommentController::class);
+    Route::post('comments/update/{id}' ,[CommentController::class,'update'] );
+
+    Route::apiResource('countries', CountryController::class);
+    Route::post('countries/update/{id}' ,[CountryController::class,'update'] );
+
+    Route::apiResource('entries', EntryController::class);
+    Route::post('entries/update/{id}' ,[EntryController::class,'update'] );
+
+    Route::apiResource('gifts', GiftController::class);
+    Route::post('gifts/update/{id}' ,[GiftController::class,'update'] );
+
+    Route::apiResource('likes', LikeController::class);
+    Route::post('likes/update/{id}' ,[LikeController::class,'update'] );
+
+
+
+
+
+
+
+
 
 });

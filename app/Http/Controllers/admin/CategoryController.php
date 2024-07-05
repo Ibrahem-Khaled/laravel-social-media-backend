@@ -67,13 +67,7 @@ class CategoryController extends Controller
 
         $category->update([
             'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'role' => $request['role'],
-            'phone' => $request['phone'],
-            'address' => $request['address'],
-            'gender' => $request['gender'],
-            'date_of_birth' => $request['birthDay'],
+            'status' => $request['status'],
             'slug' => $request['slug'],
             'image' => $request['image']
 

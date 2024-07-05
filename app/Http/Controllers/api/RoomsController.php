@@ -5,6 +5,9 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Rooms;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class RoomsController extends Controller
 {
@@ -16,12 +19,17 @@ class RoomsController extends Controller
     // Store a newly created resource in storage.
     public function store(Request $request)
     {
+        if(!$request->user_id){
+            $user = auth()->guard('api')->user();
+            $request['user_id'] = $user->id;
+        }
+       $request['password'] = Hash::make($request['password']);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'status' => 'required|in:active,inactive',
             'user_id' => 'required|integer',
             'slug' => 'required|string|max:255|unique:rooms,slug',
-            'image' => 'nullable|string',
+            'image' => 'nullable|image',
             'password' => 'nullable|string',
             'category_id' => 'required|integer',
         ]);
@@ -40,6 +48,12 @@ class RoomsController extends Controller
     // Update the specified resource in storage.
     public function update(Request $request, $id)
     {
+
+        if(!$request->user_id){
+            $user = auth()->guard('api')->user();
+            $request['user_id'] = $user->id;
+        }
+       $request['password'] = Hash::make($request['password']);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'status' => 'required|in:active,inactive',
