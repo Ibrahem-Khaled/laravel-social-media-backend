@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\api\authController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CommentController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\API\GiftController;
 use App\Http\Controllers\API\LikeController;
 use App\Http\Controllers\api\PostController;
 use App\Http\Controllers\api\RoomsController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -61,8 +64,14 @@ Route::group([], function () {
     Route::apiResource('likes', LikeController::class);
     Route::post('likes/update/{id}' ,[LikeController::class,'update'] );
 
+    Route::post('/frames/{frameId}/buy', [UserController::class, 'buyFrame'])->middleware('auth:api');
 
-
+    Route::middleware('auth:api')->group(function () {
+        Route::post('chats', [ChatController::class, 'store']);
+        Route::post('chats/{chat}/messages', [MessageController::class, 'store']);
+        Route::get('chats', [ChatController::class, 'index']);
+        Route::get('chats/{chat}/messages', [MessageController::class, 'index']);
+    });
 
 
 
