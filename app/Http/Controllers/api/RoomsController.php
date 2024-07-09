@@ -41,7 +41,7 @@ class RoomsController extends Controller
     // Display the specified resource.
     public function show($id)
     {
-        $room = Rooms::findOrFail($id);
+        $room = Rooms::with('user')->findOrFail($id);
         return response()->json($room);
     }
 

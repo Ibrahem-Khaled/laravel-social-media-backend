@@ -10,9 +10,14 @@ class Frame extends Model
 {
     use HasFactory;
 
-    protected $fillable =[ 'title' ,'image' , 'expire','price'];
+    protected $fillable =[ 'title' ,'image' ,'price', 'expire'];
 
     protected $casts =[
         'image' => FileCast::class ,
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(FrameUser::class);
+    }
 }

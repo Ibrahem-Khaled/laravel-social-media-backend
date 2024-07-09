@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('image')->nullable();
             $table->string('price');
-            $table->date('expire')->nullable();
+            $table->integer('expire')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('borders');
+        Schema::dropIfExists('frames');
     }
 };

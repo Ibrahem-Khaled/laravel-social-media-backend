@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Frame;
+use App\Models\FrameUser;
 use App\Models\Gift;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -96,5 +100,19 @@ class UserController extends Controller
 
 
         return view('admin.usersGiftsList' , compact('users'));
+    }
+
+    public function buyFrame(Request $request, $frameId)
+    {
+        $frame = Frame::findOrFail($frameId);
+        $expiresAt = Carbon::now()->addDays($frame->expire);
+
+        FrameUser::create([
+            'user_id' => auth()->guard('api')->user()->id,
+            'frame_id' => $frame->id,
+            'expires_at' => $expiresAt,
+        ]);
+
+        return response()->json(['message' => 'Frame purchased successfully.'], 200);
     }
 }
