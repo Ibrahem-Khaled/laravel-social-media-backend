@@ -10,6 +10,7 @@ use App\Http\Controllers\API\GiftController;
 use App\Http\Controllers\API\LikeController;
 use App\Http\Controllers\api\PostController;
 use App\Http\Controllers\api\RoomsController;
+use App\Http\Controllers\API\V1\AuthController as V1AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
@@ -78,4 +79,12 @@ Route::group([], function () {
 
 
 
+});
+
+
+
+////////////
+
+Route::group(['prefix' => 'auth', 'controller' => V1AuthController::class], function () {
+    Route::post('login', 'login');
 });
