@@ -87,4 +87,5 @@ Route::group([], function () {
 
 Route::group(['prefix' => 'auth', 'controller' => V1AuthController::class], function () {
     Route::post('login', 'login');
+    Route::post('register', 'register');
 });

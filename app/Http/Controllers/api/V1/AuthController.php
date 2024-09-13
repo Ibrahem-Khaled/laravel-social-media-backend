@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\LoginRequest;
+use App\Http\Requests\API\V1\RegisterRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -21,5 +23,14 @@ class AuthController extends Controller
         $token = $user->createToken('token')->plainTextToken;
 
         return $this->sendResponse(200, "Welcome Back, $user->name", ['token' => $token]);
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        $user = User::create($request->toArray());
+
+        $token = $user->createToken('token')->plainTextToken;
+
+        return $this->sendResponse(200, "Welcome to " . env('APP_NAME') . ", {$user->name}", ['token' => $token]);
     }
 }
