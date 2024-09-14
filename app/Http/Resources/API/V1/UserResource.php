@@ -19,13 +19,25 @@ class UserResource extends JsonResource
         return
         [
             'name' => $this->name,
+            'following' => $this->following,
+            'followers' => $this->followers,
+            'following_privacy' => $this->following_privacy ? 'Enabled' : 'Disabled',
             'email' => $this->email,
+            'phone' => $this->phone,
+            'address' => $this->address,
+            'gender' => $this->gender,
+            'date_of_birth' => $this->date_of_birth,
             'joined_at' => $this->created_at->format('Y-m-d H:i:s'),
             'verified' => $this->email_verified_at ? true : false,
             'verified_at' => $this->when(
                 $this->email_verified_at,
                 $this->email_verified_at ? $this->email_verified_at->format('Y-m-d H:i:s') : null
             ),
+            'last_login_at' => $this->last_login_at ? $this->last_login_at->format('Y-m-d H:i:s') : null,
+            'last_login_ip' => $this->last_login_ip,
+            'last_activity_at' => $this->last_activity_at ? $this->last_activity_at->format('Y-m-d H:i:s') : null,
+            'last_activity_ip' => $this->last_activity_ip,
+
         ];
     }
 }

@@ -23,26 +23,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role',
-        'image',
-        'phone',
-        'address',
-        'gender',
-        'date_of_birth',
-        'slug',
-        'status',
-        'last_login_at',
-        'last_logout_at',
-        'last_activity_at',
-        'last_login_ip',
-        'last_logout_ip',
-        'last_activity_ip',
-
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -61,6 +42,9 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login_at' => 'datetime',
+        'last_logout_at' => 'datetime',
+        'last_activity_at' => 'datetime',
         'image' => FileCast::class,
     ];
 

@@ -18,6 +18,10 @@ class AuthController extends Controller
             return $this->sendResponse(401, "Invalid credentials", null);
         }
 
+        if(!auth()->user()->status){
+            return $this->sendResponse(403, 'Your account is not disabled. Please contact the administrator.');
+        }
+
         $user = auth()->user();
 
         $user->update(
