@@ -30,6 +30,20 @@ class RegisterRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'name.required' => 'The name field is required.',
+            'name.max' => 'The name may not be greater than 55 characters.',
+            'email.email' => 'The email must be a valid email address.',
+            'email.required' => 'The email field is required.',
+            'email.unique' => 'The email has already been taken.',
+            'password.required' => 'The password field is required.',
+            'password.confirmed' => 'The password confirmation does not match.',
+            'password.min' => 'The password must be at least 8 characters.',
+        ];
+    }
+
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException($this->sendResponse(422, "The data you entered isn't valid", $validator->errors()));

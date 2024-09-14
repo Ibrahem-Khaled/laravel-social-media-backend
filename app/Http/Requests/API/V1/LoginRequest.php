@@ -29,6 +29,17 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages()
+    {
+        return [
+            'email.required' => 'The email field is required.',
+            'email.email' => 'The email must be a valid email address.',
+            'email.exists' => 'The email does not exist.',
+            'password.required' => 'The password field is required.',
+            'password.string' => 'The password must be a string.',
+        ];
+    }
+
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException($this->sendResponse(422, "The data you entered isn't valid", $validator->errors()));
