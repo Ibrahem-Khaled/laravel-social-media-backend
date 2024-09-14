@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('body')->nullable();
             $table->text('image')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->enum('status',['active','inactive'])->default('active');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

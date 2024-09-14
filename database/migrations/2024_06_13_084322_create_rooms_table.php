@@ -13,12 +13,12 @@ return new class extends Migration {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->unsignedBigInteger('user_id');
-            $table->string('slug');
+            $table->boolean('status')->default(true);
+            $table->foreignId('post_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->string('slug')->unique();
             $table->string('image')->nullable();
             $table->string('password')->nullable();
-            $table->unsignedBigInteger('category_id');
             $table->timestamps();
         });
     }

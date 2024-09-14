@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('image');
             $table->string('video');
-            $table->string('price');
+            $table->float('price');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

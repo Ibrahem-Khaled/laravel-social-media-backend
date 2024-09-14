@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('cca2');
-            $table->string('country_code');
+            $table->string('cca2')->unique();
+            $table->string('country_code')->unique();
             $table->string('flag');
-            $table->enum('status',['active','inactive'])->default('active');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

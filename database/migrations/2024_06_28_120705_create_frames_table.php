@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('image')->nullable();
-            $table->string('price');
-            $table->integer('expire')->nullable();
+            $table->float('price');
+            $table->date('expire')->nullable();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

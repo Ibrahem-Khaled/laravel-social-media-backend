@@ -15,8 +15,8 @@ class CreateGiftUserTable extends Migration
     {
         Schema::create('gift_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('from_user_id');
-            $table->unsignedBigInteger('to_user_id');
+            $table->foreignId('from_user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('to_user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('gift_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
