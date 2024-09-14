@@ -7,6 +7,7 @@ use App\Http\Requests\API\User\FollowRequest;
 use App\Http\Requests\API\V1\User\CompleteProfileRequest;
 use App\Http\Resources\API\V1\UserResource;
 use App\Jobs\FollowJob;
+use App\Jobs\UnfollowJob;
 use App\Models\Following;
 use Illuminate\Http\Request;
 
@@ -75,5 +76,19 @@ class ProfileController extends Controller
         FollowJob::dispatch($user_id, $follower_id);
 
         return $this->sendResponse(201, 'User followed successfully');
+    }
+
+    public function unfollow(FollowRequest $request)
+    {
+        $user_id = auth()->id();
+        $follower_id = $request->follower_id;
+
+        if ($user_id == $follower_id) {
+            return $this->sendResponse(400, 'You cannot unfollow yourself');
+        }
+
+        UnfollowJob::dispatch($user_id, $follower_id);
+
+        return $this->sendResponse(200, 'User unfollowed successfully');
     }
 }

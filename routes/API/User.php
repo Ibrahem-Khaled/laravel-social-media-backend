@@ -10,3 +10,4 @@ Route::post('complete-profile', [ProfileController::class, 'completeProfile']);
 Route::get('following', [ProfileController::class, 'following']);
 Route::get('followers', [ProfileController::class, 'followers']);
 Route::post('follow', [ProfileController::class, 'follow']);
+Route::post('unfollow', [ProfileController::class, 'unfollow']);
