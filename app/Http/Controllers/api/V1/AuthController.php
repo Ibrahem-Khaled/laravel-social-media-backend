@@ -20,6 +20,13 @@ class AuthController extends Controller
 
         $user = auth()->user();
 
+        $user->update(
+            [
+                'last_login_at' => now(),
+                'last_login_ip' => $request->ip()
+            ]
+        );
+
         $token = $user->createToken('token')->plainTextToken;
 
         return $this->sendResponse(200, "Welcome Back, $user->name", ['token' => $token]);
