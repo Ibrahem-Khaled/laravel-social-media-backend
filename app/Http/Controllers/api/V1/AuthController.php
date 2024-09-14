@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\LoginRequest;
 use App\Http\Requests\API\V1\RegisterRequest;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -38,10 +39,21 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        $user = User::create($request->toArray());
+
+        $slug = Str::slug($request->name, '-');
+        $request['slug'] = $this->generate($slug);
+
+        $user = User::create(
+            [
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'email' => $request->email,
+                'password' => $request->password,
+            ]
+        );
 
         $token = $user->createToken('token')->plainTextToken;
 
-        return $this->sendResponse(200, "Welcome to " . env('APP_NAME') . ", {$user->name}", ['token' => $token]);
+        return $this->sendResponse(201, "Welcome to " . env('APP_NAME') . ", {$user->name}", ['token' => $token]);
     }
 }

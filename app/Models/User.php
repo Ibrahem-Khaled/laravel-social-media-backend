@@ -45,7 +45,7 @@ class User extends Authenticatable implements JWTSubject
         'last_login_at' => 'datetime',
         'last_logout_at' => 'datetime',
         'last_activity_at' => 'datetime',
-        'image' => FileCast::class,
+        'image' => FileCast::class . ':avatars,public',
     ];
 
 
@@ -89,4 +89,13 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Message::class);
     }
 
+    public function followingList()
+    {
+        return $this->hasMany(Following::class, 'following_id');
+    }
+
+    public function followersList()
+    {
+        return $this->hasMany(Following::class, 'follower_id');
+    }
 }

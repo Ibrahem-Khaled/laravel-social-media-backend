@@ -18,7 +18,10 @@ class UserResource extends JsonResource
 
         return
         [
+            'id' => $this->id,
+            'slug' => $this->slug,
             'name' => $this->name,
+            'image' => url($this->image),
             'following' => $this->following,
             'followers' => $this->followers,
             'following_privacy' => $this->following_privacy ? 'Enabled' : 'Disabled',

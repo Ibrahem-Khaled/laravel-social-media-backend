@@ -26,10 +26,11 @@ class CompleteProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => 'required|numeric',
+            'phone' => 'required|numeric|unique:users,phone,'.auth('sanctum')->id(),
             'address' => 'required|string|max:255',
             'gender' => 'required|in:male,female,other',
             'date_of_birth' => 'required|date|before:'.now()->subYears(18)->toDateString(),
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
