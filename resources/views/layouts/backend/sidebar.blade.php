@@ -19,7 +19,7 @@
                             <i class="fa fa-circle-notch text-primary"></i>
                         </span>
                         <span class="smini-hide font-size-h5 tracking-wider">
-                        Enjoy<span class="font-w400">Chat</span>
+                            {{ env('APP_NAME') }}
                         </span>
                     </a>
                     <!-- END Logo -->
@@ -28,9 +28,6 @@
                     <div>
                         <!-- Color Variations -->
                         <div class="dropdown d-inline-block ml-2">
-                            <a class="btn btn-sm btn-dual" id="sidebar-themes-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                                <i class="si si-drop"></i>
-                            </a>
                             <div class="dropdown-menu dropdown-menu-right font-size-sm smini-hide border-0" aria-labelledby="sidebar-themes-dropdown">
                                 <!-- Color Themes -->
                                 <!-- Layout API, functionality initialized in Template._uiHandleTheme() -->

@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -54,9 +56,16 @@ class User extends Authenticatable implements JWTSubject
         $this->attributes['password'] = bcrypt($password);
     }
 
-    public function getJWTIdentifier()
+    public function getProfilePictureUrlAttribute()
     {
-        return $this->getKey();
+        return $this->image !== '/uploadable.jpg'
+            ? url($this->image)
+            : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->role == 'admin';
     }
 
     /**
@@ -97,5 +106,10 @@ class User extends Authenticatable implements JWTSubject
     public function followersList()
     {
         return $this->hasMany(Following::class, 'follower_id');
+    }
+
+    public function rooms()
+    {
+        return $this->hasMany(Rooms::class);
     }
 }

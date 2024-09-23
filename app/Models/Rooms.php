@@ -2,52 +2,51 @@
 
 namespace App\Models;
 
-use Bl\LaravelUploadable\Casts\FileCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Support\Str;
+
 
 class Rooms extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'status',
-        'user_id',
-        'slug',
-        'image',
-        'password',
-        'category_id',
-    ];
+    protected $guarded = [];
 
 
+    protected static function booted()
+    {
+        static::creating(function ($category) {
+            $category->slug = Str::slug($category->name);
+        });
+
+        static::updating(function ($model) {
+            $model->slug = Str::slug($model->name);
+        });
+    }
 
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'image' => FileCast::class,
-    ];
+    public function getImageUrlAttribute()
+    {
+        return $this->image
+            ? url($this->image)
+            : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
+    }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', true);
+    }
 
+    function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-
-         /**
-         * The user that belong to the Rooms
-         *
-         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-         */
-        function user()
-        {
-            return $this->hasOne(User::class , 'id' , 'user_id');
-        }
-
-        function category()
-        {
-            return $this->hasOne(Category::class , 'id' , 'category_id');
-        }
+    function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
 }

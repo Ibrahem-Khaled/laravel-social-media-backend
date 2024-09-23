@@ -10,11 +10,17 @@ class Country extends Model
 {
     use HasFactory;
 
-    protected $fillable  = [
-        'name','cca2','country_code' , 'flag','status'
-    ];
+    protected $guarded = [];
 
-    protected $casts = [
-        'flag' => FileCast::class,
-    ];
+    public function getImageUrlAttribute()
+    {
+        return $this->flag
+            ? url($this->flag)
+            : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

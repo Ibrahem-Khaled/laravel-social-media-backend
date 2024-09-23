@@ -10,8 +10,15 @@ class FrameUser extends Model
     use HasFactory;
 
 
-    protected $fillable = ['user_id', 'frame_id', 'purchased_at', 'expires_at'];
+    protected $guarded = [];
+
     protected $table = 'frame_user';
+
+    protected $casts = [
+        'expires_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
     public function frame()
     {
         return $this->belongsTo(Frame::class);

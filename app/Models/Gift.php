@@ -10,12 +10,22 @@ class Gift extends Model
 {
     use HasFactory;
 
-    protected $fillable =[ 'title' ,'image' , 'video','price'];
+    protected $guarded = [];
 
-    protected $casts =[
-        'image' => FileCast::class ,
-        'video' => FileCast::class
-    ];
+    public function getImageUrlAttribute()
+    {
+        return $this->image
+            ? url($this->image)
+            : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
+    }
+
+    public function getVideoUrlAttribute()
+    {
+        return $this->video
+            ? url($this->video)
+            : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
+    }
+
 
     public function senders()
     {
@@ -25,5 +35,10 @@ class Gift extends Model
     public function recipients()
     {
         return $this->belongsToMany(User::class, 'gift_user', 'gift_id', 'to_user_id')->withTimestamps();
+    }
+
+    public function giftings()
+    {
+        return $this->hasMany(GiftUser::class);
     }
 }

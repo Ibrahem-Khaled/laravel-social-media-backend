@@ -50,7 +50,7 @@
                 <tr id="user-row-{{$user->id}}">
                     <td class="text-center font-size-sm">{{$i}}</td>
                     <td class="font-w600 font-size-sm">
-                        <a href="be_pages_generic_blank.html">{{$user->name}}</a>
+                        <a href="#">{{$user->name}}</a>
                     </td>
                     <td class="font-w600 font-size-sm">
                        <span>{{$user->email}}</span>
@@ -60,24 +60,28 @@
                     </td>
 
                     <td class="d-none d-sm-table-cell font-size-sm">
-                        {{$user->phone}}
+                      {!! $user->phone ?? '<span class="badge badge-danger">N/A</span>' !!}
                     </td>
 
 
                     <td class="d-none d-sm-table-cell font-size-sm">
-                        {{$user->address}}
+                      {!! $user->address ?? '<span class="badge badge-danger">N/A</span>' !!}
                     </td>
 
                     <td class="d-none d-sm-table-cell font-size-sm">
-                        {{$user->gender}}
+                      {!! $user->gender ?? '<span class="badge badge-danger">N/A</span>' !!}
                     </td>
 
                     <td class="d-none d-sm-table-cell font-size-sm">
-                        {{$user->date_of_birth}}
+                      {!! $user->date_of_birth ?? '<span class="badge badge-danger">N/A</span>' !!}
                     </td>
 
                     <td class="d-none d-sm-table-cell">
-                        <span >{{$user->status}}</span>
+                      @if ($user->status)
+                      <span class="badge badge-success">Active</span>
+                      @else
+                        <span class="badge badge-danger">Inactive</span>
+                      @endif
                     </td>
 
                     <td class="d-none d-sm-table-cell font-size-sm">

@@ -6,7 +6,6 @@
 
         <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed "  >
 
-        @include('layouts.backend.overlay-sidebar')
 
         @include('layouts.backend.sidebar')
 

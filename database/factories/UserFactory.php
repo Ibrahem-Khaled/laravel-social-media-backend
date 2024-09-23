@@ -20,9 +20,18 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'role' => fake()->randomElement(['superAdmin','admin','user','editor']),
+            'image' => fake()->imageUrl(),
+            'phone' => fake()->phoneNumber(),
+            'address' => fake()->streetAddress(),
+            'gender' => fake()->randomElement(['male' , 'female']),
+            'date_of_birth' => fake()->date(),
+            'password' => 'password',
+            'following' => fake()->numberBetween(2,99999),
+            'followers' => fake()->numberBetween(2,99999),
+            'following_privacy' =>fake()->boolean(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'slug' => fake()->unique()->slug()
         ];
     }
 
