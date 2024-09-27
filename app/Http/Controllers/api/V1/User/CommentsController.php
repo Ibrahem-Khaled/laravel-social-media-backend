@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\User\CreateCommentRequest;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
@@ -13,6 +14,7 @@ class CommentsController extends Controller
     {
         $this->authorize('create', Comment::class);
 
+        Post::where('id', $request->post_id)->increment('comment');
         $comment = auth()->user()->comments()->create($request->validated());
 
         return $this->sendResponse(
@@ -37,6 +39,7 @@ class CommentsController extends Controller
     {
         $this->authorize('delete', $comment);
 
+        Post::where('id', $comment->post_id)->decrement('comment');
         $comment->delete();
 
         return $this->sendResponse(

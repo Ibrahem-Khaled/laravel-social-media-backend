@@ -6,6 +6,7 @@ namespace App\Http\Controllers\API\V1\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\User\CreatePostRequest;
 use App\Http\Resources\API\V1\PostsResource;
+use App\Http\Resources\API\V1\UserProfileResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -107,6 +108,73 @@ class PostsController extends Controller
         return $this->sendResponse(
             200,
             'Post deleted successfully'
+        );
+    }
+
+    public function likes(Post $post)
+    {
+        $likes = $post->likes()->with('user')->paginate(10);
+
+        return $this->sendResponse(
+            200,
+            "Likes of {$post->title} fetched successfully",
+            [
+                'count' => $likes->count(),
+                'data' => UserProfileResource::collection($likes->pluck('user')),
+                'pagination' => [
+                    'total' => $likes->total(),
+                    'current_page' => $likes->currentPage(),
+                    'last_page' => $likes->lastPage(),
+                    'from' => $likes->firstItem(),
+                    'to' => $likes->lastItem(),
+                    'first_page_url' => $likes->url(1),
+                    'last_page_url' => $likes->url($likes->lastPage()),
+                    'next_page_url' => $likes->nextPageUrl(),
+                    'prev_page_url' => $likes->previousPageUrl(),
+                ],
+            ]
+        );
+    }
+
+    public function like(Post $post)
+    {
+        $existingLike = $post->likes()->where('user_id', auth()->id())->exists();
+
+        if ($existingLike) {
+            return $this->sendResponse(
+                400,
+                'Post already liked'
+            );
+        }
+
+        $post->likes()->create(['user_id' => auth()->id()]);
+
+        $post->increment('like');
+
+        return $this->sendResponse(
+            200,
+            'Post liked successfully'
+        );
+    }
+
+    public function unlike(Post $post)
+    {
+        $existingLike = $post->likes()->where('user_id', auth()->id())->exists();
+
+        if (!$existingLike) {
+            return $this->sendResponse(
+                400,
+                'Post not liked yet'
+            );
+        }
+
+        $post->decrement('like');
+        $post->likes()->where('user_id', auth()->id())->delete();
+
+
+        return $this->sendResponse(
+            200,
+            'Post unliked successfully'
         );
     }
 

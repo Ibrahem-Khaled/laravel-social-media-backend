@@ -15,6 +15,8 @@ Route::get('followers', [ProfileController::class, 'followers']);
 Route::post('follow', [ProfileController::class, 'follow']);
 Route::post('unfollow', [ProfileController::class, 'unfollow']);
 
+Route::get('profile/{user:slug}', [ProfileController::class, 'show']);
+
 //Rooms Routes
 Route::get('rooms', [RoomsController::class, 'index']);
 Route::post('rooms/join',  [RoomsController::class, 'join']);
@@ -28,6 +30,10 @@ Route::group(['prefix' => 'posts' , 'as' => 'posts.' , 'controller' => PostsCont
     Route::post('', 'store');
     Route::post('{post}' , 'update');
     Route::delete('{post}' , 'destroy');
+    Route::get('{post}/likes' , 'likes');
+    Route::post('{post}/like' , 'like');
+    Route::post('{post}/unlike' , 'unlike');
+
 
 });
 

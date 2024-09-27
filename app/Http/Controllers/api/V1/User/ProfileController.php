@@ -5,10 +5,12 @@ namespace App\Http\Controllers\API\V1\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\User\FollowRequest;
 use App\Http\Requests\API\V1\User\CompleteProfileRequest;
+use App\Http\Resources\API\V1\UserProfileResource;
 use App\Http\Resources\API\V1\UserResource;
 use App\Jobs\FollowJob;
 use App\Jobs\UnfollowJob;
 use App\Models\Following;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -90,5 +92,12 @@ class ProfileController extends Controller
         UnfollowJob::dispatch($user_id, $follower_id);
 
         return $this->sendResponse(200, 'User unfollowed successfully');
+    }
+
+    public function show(Request $request,User $user)
+    {
+        $user->load('posts','posts.user');
+
+        return $this->sendResponse(200, $user->name . "'s profile", new UserProfileResource($user));
     }
 }
