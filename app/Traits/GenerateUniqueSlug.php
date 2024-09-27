@@ -1,8 +1,8 @@
 <?php
 
-
 namespace App\Traits;
 
+use Illuminate\Support\Str;
 use App\Models\User;
 
 trait GenerateUniqueSlug
@@ -10,19 +10,20 @@ trait GenerateUniqueSlug
     /**
      * Generate a unique slug for a given model.
      *
-     * @param string $title
-     * @param string $model
-     * @param string $column
+     * @param string $baseSlug
      * @return string
      */
     public function generate($baseSlug)
     {
-        $slug = $baseSlug;
-        $count = 1;
+        $slug = Str::slug($baseSlug);
+        $originalSlug = $slug;
 
-        while (User::where('slug', $slug)->exists()) {
-            $slug = $baseSlug . '-' . $count;
-            $count++;
+        if (User::where('slug', $slug)->exists()) {
+            $count = 1;
+            do {
+                $slug = $originalSlug . '-' . $count;
+                $count++;
+            } while (User::where('slug', $slug)->exists());
         }
 
         return $slug;

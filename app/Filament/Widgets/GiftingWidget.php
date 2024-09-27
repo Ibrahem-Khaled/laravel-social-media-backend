@@ -12,10 +12,6 @@ class GiftingWidget extends BaseWidget
 {
     protected static ?string $pollingInterval = null;
 
-    public static function getTitle(): string
-    {
-        return 'User Purchases Overview';
-    }
 
     protected function getStats(): array
     {

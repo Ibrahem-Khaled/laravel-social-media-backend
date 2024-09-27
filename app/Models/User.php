@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Traits\GenerateUniqueSlug;
 use Bl\LaravelUploadable\Casts\FileCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,7 +18,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable , GenerateUniqueSlug;
 
 
     /**
@@ -50,6 +51,25 @@ class User extends Authenticatable implements FilamentUser
         'image' => FileCast::class . ':avatars,public',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $user->slug = $user->generate($user->name);
+        });
+
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function isFollowedBy(User $user)
+    {
+        return $this->followersList()->where('follower_id', $user->id)->exists();
+    }
 
     public function setPasswordAttribute($password)
     {

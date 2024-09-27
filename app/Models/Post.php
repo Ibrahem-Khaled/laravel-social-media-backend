@@ -19,6 +19,11 @@ class Post extends Model
             : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=7F9CF5&background=EBF4FF';
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

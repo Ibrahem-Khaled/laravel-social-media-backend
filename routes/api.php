@@ -13,6 +13,8 @@ use App\Http\Controllers\api\RoomsController;
 use App\Http\Controllers\API\V1\AuthController as V1AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MessageController;
+use App\Models\User;
+use App\Traits\GenerateUniqueSlug;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -85,7 +87,11 @@ Route::group([], function () {
 
 ////////////
 
-Route::group(['prefix' => 'auth', 'controller' => V1AuthController::class], function () {
+Route::group(['prefix' => 'auth', 'middleware' => 'throttle:auth-api' , 'controller' => V1AuthController::class], function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
+    Route::post('forgot-password', 'forgotPassword');
+    Route::post('code', 'code')->middleware('auth:sanctum');
+    Route::post('reset-password', 'resetPassword')->middleware('auth:sanctum');
 });
+
