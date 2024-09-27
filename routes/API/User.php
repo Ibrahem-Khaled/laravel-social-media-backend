@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\V1\User\CommentsController;
 use App\Http\Controllers\API\V1\User\PostsController;
 use App\Http\Controllers\API\V1\User\ProfileController;
 use App\Http\Controllers\API\V1\User\RoomsController;
@@ -27,5 +28,14 @@ Route::group(['prefix' => 'posts' , 'as' => 'posts.' , 'controller' => PostsCont
     Route::post('', 'store');
     Route::post('{post}' , 'update');
     Route::delete('{post}' , 'destroy');
+
+});
+
+//Comments Routes
+Route::group(['prefix' => 'comments' , 'as' => 'comments.' , 'controller' => CommentsController::class], function(){
+
+    Route::post('', 'store')->name('store');
+    Route::post('{comment}' , 'update');
+    Route::delete('{comment}' , 'destroy');
 
 });

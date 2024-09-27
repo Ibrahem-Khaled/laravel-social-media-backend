@@ -9,6 +9,11 @@ class Comment extends Model
 {
     use HasFactory;
 
+    public $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
     protected $guarded = [];
 
     public function user()

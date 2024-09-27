@@ -66,6 +66,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Post::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function isFollowedBy(User $user)
     {
         return $this->followersList()->where('follower_id', $user->id)->exists();
