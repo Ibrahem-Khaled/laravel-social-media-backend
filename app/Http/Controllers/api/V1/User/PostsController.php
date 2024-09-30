@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\User\CreatePostRequest;
 use App\Http\Resources\API\V1\PostsResource;
 use App\Http\Resources\API\V1\UserProfileResource;
+use App\Jobs\PostLikedJob;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -147,9 +148,8 @@ class PostsController extends Controller
             );
         }
 
-        $post->likes()->create(['user_id' => auth()->id()]);
+        PostLikedJob::dispatch($post , auth()->user());
 
-        $post->increment('like');
 
         return $this->sendResponse(
             200,

@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\V1\User\CommentsController;
-use App\Http\Controllers\API\V1\User\PostsController;
-use App\Http\Controllers\API\V1\User\ProfileController;
-use App\Http\Controllers\API\V1\User\RoomsController;
+use App\Http\Controllers\API\V1\User\{CommentsController,PostsController,ProfileController,RoomsController,NotificationsController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -21,12 +18,21 @@ Route::get('profile/{user:slug}', [ProfileController::class, 'show']);
 Route::get('rooms', [RoomsController::class, 'index']);
 Route::post('rooms/join',  [RoomsController::class, 'join']);
 
+//Notifications Routes
+
+Route::group(['prefix' => 'notifications' , 'as' => 'notifications.' , 'controller' => NotificationsController::class], function(){
+
+    Route::get('', 'index');
+    Route::post('mark-as-read', 'markAsRead');
+    Route::post('mark-all-as-read', 'markAllAsRead');
+
+});
 
 //Posts Routes
 Route::group(['prefix' => 'posts' , 'as' => 'posts.' , 'controller' => PostsController::class], function(){
 
     Route::get('', 'index');
-    Route::get('{id}' , 'show');
+    Route::get('{id}' , 'show')->name('show');
     Route::post('', 'store');
     Route::post('{post}' , 'update');
     Route::delete('{post}' , 'destroy');

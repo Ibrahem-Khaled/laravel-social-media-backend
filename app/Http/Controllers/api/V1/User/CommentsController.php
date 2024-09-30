@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\User\CreateCommentRequest;
+use App\Jobs\PostCommentedJob;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -14,8 +15,13 @@ class CommentsController extends Controller
     {
         $this->authorize('create', Comment::class);
 
-        Post::where('id', $request->post_id)->increment('comment');
+        $post = Post::where('id', $request->post_id)->first();
+        
+        $post->increment('comment');
+
         $comment = auth()->user()->comments()->create($request->validated());
+
+        PostCommentedJob::dispatch($comment , $post->user);
 
         return $this->sendResponse(
             201,
