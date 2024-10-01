@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\V1\User\{CommentsController,PostsController,ProfileController,RoomsController,NotificationsController};
+use App\Http\Controllers\API\V1\User\{CommentsController,PostsController,ProfileController,RoomsController,NotificationsController, SearchController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,20 +12,26 @@ Route::get('followers', [ProfileController::class, 'followers']);
 Route::post('follow', [ProfileController::class, 'follow']);
 Route::post('unfollow', [ProfileController::class, 'unfollow']);
 
-Route::get('profile/{user:slug}', [ProfileController::class, 'show']);
+Route::get('profile/{user:slug}', [ProfileController::class, 'show'])->name('profile.show');
 
-//Rooms Routes
-Route::get('rooms', [RoomsController::class, 'index']);
-Route::post('rooms/join',  [RoomsController::class, 'join']);
 
 //Notifications Routes
 Route::group(['prefix' => 'notifications' , 'as' => 'notifications.' , 'controller' => NotificationsController::class], function(){
 
     Route::get('', 'index');
-    Route::get('mark-all-as-read', 'markAllAsRead');    
+    Route::get('mark-all-as-read', 'markAllAsRead');
     Route::get('{id}', 'markAsRead');
 
 });
+
+//Search Route
+
+Route::get('search', action: SearchController::class);
+
+//Rooms Routes
+Route::get('rooms', [RoomsController::class, 'index']);
+Route::post('rooms/join',  [RoomsController::class, 'join'])->name('rooms.join');
+
 
 //Posts Routes
 Route::group(['prefix' => 'posts' , 'as' => 'posts.' , 'controller' => PostsController::class], function(){

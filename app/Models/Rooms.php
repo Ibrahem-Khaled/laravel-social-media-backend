@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\GenerateUniqueSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,19 +11,19 @@ use Illuminate\Support\Str;
 
 class Rooms extends Model
 {
-    use HasFactory;
+    use HasFactory , GenerateUniqueSlug;
 
     protected $guarded = [];
+
+    protected $table = 'rooms';
 
 
     protected static function booted()
     {
-        static::creating(function ($category) {
-            $category->slug = Str::slug($category->name);
-        });
+        parent::boot();
 
-        static::updating(function ($model) {
-            $model->slug = Str::slug($model->name);
+        static::creating(function ($room) {
+            $room->slug = $room->generate($room->name);
         });
     }
 
@@ -47,6 +48,11 @@ class Rooms extends Model
     function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    function members()
+    {
+        return $this->hasMany(RoomMember::class, 'room_id');
     }
 
 }

@@ -21,7 +21,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'slug' => $this->slug,
             'name' => $this->name,
-            'image' => url($this->image),
+            'image' => $this->profile_picture_url,
             'following' => $this->following,
             'followers' => $this->followers,
             'following_privacy' => $this->following_privacy ? 'Enabled' : 'Disabled',
