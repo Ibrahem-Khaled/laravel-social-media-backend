@@ -40,8 +40,6 @@
                                         <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
                                         <option value="active">active</option>
                                         <option value="inactive">inactive</option>
-
-
                                     </select>
                                 </div>
                         </div>
