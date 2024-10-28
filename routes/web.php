@@ -23,9 +23,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
 
-
-Route::group(['middleware' => 'auth','prefix' => 'dashboard'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
 
     Route::get('/users', [UserController::class, 'listUsers'])->name('admin.users.list');
     Route::get('/users/add', [UserController::class, 'addUser'])->name('admin.users.add');
@@ -100,13 +102,8 @@ Route::group(['middleware' => 'auth','prefix' => 'dashboard'], function () {
     Route::post('/entries/update/{id}', [EntryController::class, 'updateEntry'])->name('admin.entries.update');
 });
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('admin.users.list');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
