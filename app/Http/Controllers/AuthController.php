@@ -77,6 +77,7 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
+        $data = $request->except('password_confirmation');
 
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
