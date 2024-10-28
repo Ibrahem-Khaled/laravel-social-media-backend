@@ -86,7 +86,10 @@ class AuthController extends Controller
 
         // إنشاء المستخدم
         $user = User::create($data);
+        $credentials = $request->only('email', 'password');
 
+        // تسجيل الدخول
+        auth()->attempt($credentials);
         return redirect()->back()->with('success', 'تم انشاء حسابك بنجاح');
     }
     public function logout()
