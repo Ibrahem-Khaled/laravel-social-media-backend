@@ -77,15 +77,18 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
+
+        // استبعاد password_confirmation
         $data = $request->except('password_confirmation');
 
-        $data = $request->all();
+        // تشفير كلمة المرور
         $data['password'] = bcrypt($data['password']);
+
+        // إنشاء المستخدم
         $user = User::create($data);
 
         return redirect()->back()->with('success', 'تم انشاء حسابك بنجاح');
     }
-
     public function logout()
     {
         Auth::logout();
